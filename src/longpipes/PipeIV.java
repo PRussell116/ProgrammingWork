@@ -9,6 +9,6 @@ package longpipes;
  *
  * @author Oliver
  */
-public class PipeIV {
+public class PipeIV extends SuperPipe{
     
 }
