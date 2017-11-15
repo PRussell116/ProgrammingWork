@@ -20,5 +20,21 @@ public class SuperPipe {
         outerDiameter = outerDi;
         innerDiameter = (float) (outerDi * 0.9);                   //calculates inner diameter of pipe  
     };
+    
+    public int getLength(){
+        return length;
+    } 
+    
+    public int getOuterDiameter(){
+        return outerDiameter;
+    }
+    
+    public void setLength(int newLeng){
+        length = newLeng;
+    }
+    
+    public void setOuterDiameter(int newDia){
+        outerDiameter = newDia;
+    }
    
 }
