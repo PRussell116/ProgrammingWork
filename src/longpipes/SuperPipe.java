@@ -10,5 +10,15 @@ package longpipes;
  * @author Oliver
  */
 public class SuperPipe {
-    
+    protected int plasticGrade,length,outerDiameter;
+    protected float innerDiameter, basicCost;
+    protected boolean chemRes;
+        
+    public SuperPipe(int plasticGr,int len,int outerDi ,boolean chemRes ){
+        plasticGrade = plasticGr;
+        length = len;
+        outerDiameter = outerDi;
+        innerDiameter = (float) (outerDi * 0.9);                   //calculates inner diameter of pipe  
+    };
+   
 }
