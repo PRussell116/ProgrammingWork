@@ -7,8 +7,15 @@ package longpipes;
 
 /**
  *
- * @author Oliver
+ * 
  */
-public class PipeIV extends SuperPipe{
+public class PipeIV extends PipeIII{
+    protected boolean innerInsulation;
+    
+    public PipeIV(int plasticGr,int len,int outerDi ,boolean chemRes, String col1, String col2, boolean innerIns){
+        super(plasticGr,len,outerDi,chemRes,col1,col2);
+        innerInsulation = innerIns;
+        
+    }
     
 }

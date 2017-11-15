@@ -9,6 +9,15 @@ package longpipes;
  *
  * @author Oliver
  */
-public class PipeV extends SuperPipe{
+public class PipeV extends PipeIV{
+    protected boolean outerReinfocement;
+    
+    public PipeV(int plasticGr,int len,int outerDi ,boolean chemRes, String col1, String col2, boolean innerIns, boolean outerRein){
+        super(plasticGr,len,outerDi,chemRes,col1,col2,innerIns);
+        outerReinfocement = outerRein;
+        
+
+    }
+        
     
 }

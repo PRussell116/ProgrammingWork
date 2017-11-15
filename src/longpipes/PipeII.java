@@ -7,8 +7,15 @@ package longpipes;
 
 /**
  *
- * @author Oliver
+ * 
  */
 public class PipeII extends SuperPipe{
+    protected String colour1;
+    
+    public PipeII(int plasticGr,int len,int outerDi ,boolean chemRes, String col1){
+        super(plasticGr,len,outerDi,chemRes);
+        colour1 = col1;
+    
+}
     
 }

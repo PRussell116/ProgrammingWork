@@ -7,7 +7,7 @@ package longpipes;
 
 /**
  *
- * @author Oliver
+ * 
  */
 public class SuperPipe {
     protected int plasticGrade,length,outerDiameter;
