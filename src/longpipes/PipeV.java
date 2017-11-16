@@ -16,6 +16,7 @@ public class PipeV extends PipeIV{
      * @param col1 a String containing the first colour of the pipe
      * @param col2 a String containing the second colour of the pipe
      * @param innerIns a boolean value representing if the has inner insulation
+     * @param outerRein a boolean value representing if the pipe has outer reinforcement
      */ 
     public PipeV(int plasticGr,int len,int outerDi ,boolean chemRes, String col1, String col2, boolean innerIns, boolean outerRein){
         super(plasticGr,len,outerDi,chemRes,col1,col2,innerIns);
@@ -23,6 +24,19 @@ public class PipeV extends PipeIV{
         
 
     }
-        
     
+    
+     /** Calculate the cost of the pipe2 based on the cost found by parent class and adding additional 17%
+    * 
+    * @return  a double representing the cost of the pipe 
+    */
+        
+    @Override
+    public double calculateCost(){
+        double parentCost = super.calculateCost();   
+        double cost = parentCost + basicCost * 0.17;
+        return cost;
+    
+    
+    }
 }
