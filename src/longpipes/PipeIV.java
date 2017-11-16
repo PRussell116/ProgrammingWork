@@ -19,5 +19,20 @@ public class PipeIV extends PipeIII{
         innerInsulation = innerIns;
         
     }
-        
+   
+    
+    
+     /** Calculate the cost of the pipe2 based on the cost found by parent class and adding additional 13%
+    * 
+    * @return  a double representing the cost of the pipe 
+    */
+    
+    @Override
+    public double calculateCost(){
+        double parentCost = super.calculateCost();   
+        double cost = parentCost + basicCost * 0.13;
+        return cost;
+    
+    
+    }
 }

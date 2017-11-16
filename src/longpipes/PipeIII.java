@@ -35,4 +35,19 @@ public class PipeIII extends PipeII{
     public void setColour2(String newColour2){
         colour2 = newColour2;
     }
+    
+    
+    
+    /** Calculate the cost of the pipe2 based on the cost found by parent class and adding additional 16%
+    * 
+    * @return  a double representing the cost of the pipe 
+    */
+    @Override
+    public double calculateCost(){
+        double parentCost = super.calculateCost();    /// not sure if col needs to be added on top of previous
+        double cost = parentCost + basicCost * 0.16;
+        return cost;
+    
+    
+    }
 }
