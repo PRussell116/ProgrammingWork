@@ -2,7 +2,7 @@
 package longpipes;
 
 
-public class PipeI {
+public class SuperPipe {
 
     
     protected int plasticGrade,length,outerDiameter;
@@ -16,7 +16,7 @@ public class PipeI {
      * @param outerDi an integer representing the outer diameter of the pipe in mm
      * @param chemRes a boolean value representing if the pipe has chemical resistance 
      */    
-    public PipeI(int plasticGr,int len,int outerDi ,boolean chemRes ){
+    public SuperPipe(int plasticGr,int len,int outerDi ,boolean chemRes ){
         plasticGrade = plasticGr;
         length = len; // need to convert from inch to mm
         outerDiameter = outerDi;

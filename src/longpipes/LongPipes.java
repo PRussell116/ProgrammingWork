@@ -11,7 +11,7 @@ public class LongPipes {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SuperPipe pipe1 = new SuperPipe(1,1000,5,true);
+        PipeI pipe1 = new PipeI(1,1000,5,false);
         System.out.println(pipe1.calculateCost());
 
     }
