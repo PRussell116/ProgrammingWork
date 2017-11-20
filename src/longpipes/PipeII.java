@@ -2,7 +2,7 @@
 package longpipes;
 
 
-public class PipeII extends SuperPipe{
+public class PipeII extends PipeI{
     protected String colour1;
     
     /**
