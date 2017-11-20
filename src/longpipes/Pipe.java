@@ -12,7 +12,7 @@ package longpipes;
 public class Pipe {
     protected int plasticGrade,length,outerDiameter;
     protected double innerDiameter, basicCost;
-    protected double costPerMM;
+    protected double costPerInc;
     
     public Pipe(int plasticGr,int len,int outerDi){
         plasticGrade = plasticGr;
@@ -20,22 +20,22 @@ public class Pipe {
         outerDiameter = outerDi;
         innerDiameter = (float) (outerDi * 0.9); //calculates inner diameter of pipe
         
-        // determine costPerMM based on plastic grade
+        // determine costPerInc based on plastic grade
         switch (plasticGrade) {
             case 1:
-                costPerMM = 0.4/25.4;   // 1 inch = 0.4
+                costPerInc = 0.4;   // 1 inch = 0.4
                 break;
             case 2:
-                costPerMM = 0.6/25.4;   // 1 inch = 0.6
+                costPerInc = 0.6;   // 1 inch = 0.6
                 break;
             case 3:
-                costPerMM = 0.75/25.4;   // 1 inch = 0.75
+                costPerInc = 0.75;   // 1 inch = 0.75
                 break;
             case 4:
-                costPerMM = 0.8/25.4;   // 1 inch = 0.8
+                costPerInc = 0.8;   // 1 inch = 0.8
                 break;
             default:
-                costPerMM = 0.95/25.4;   // 1 inch = 0.95
+                costPerInc = 0.95;   // 1 inch = 0.95
                 break;
         }
     }
@@ -70,7 +70,7 @@ public class Pipe {
         Double outerVolume = Math.pow((outerDiameter/2),2) * Math.PI * length;
         Double pipeVolume = outerVolume - innerVolume;
       
-        basicCost = pipeVolume * costPerMM;
+        basicCost = (pipeVolume * 0.00006102374) * costPerInc;  //converts from mm to inches and times by the price
       
         return basicCost;
   }
