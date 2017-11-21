@@ -9,7 +9,7 @@ package longpipes;
  *
  * @author Oliver
  */
-public class Pipe {
+public abstract class Pipe {
     protected int plasticGrade,length,outerDiameter;
     protected double innerDiameter, basicCost;
     protected double costPerInc;
