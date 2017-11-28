@@ -504,12 +504,60 @@ public class PipeInterface extends javax.swing.JFrame {
     private void calcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcButtonActionPerformed
         
         // add validation (try catch)
-
-        //enter calculate cost function
-      
         float newPipeLen =  Float.parseFloat(lengthInputBox.getText());
         float newPipeWidth = Float.parseFloat(widthInputBox.getText());
         int newPipePlastic = Integer.parseInt(plasticGradeDropDown.getSelectedItem().toString());
+        
+        Boolean pipeInsu = innerInsuCheckBox.isSelected();
+        Boolean pipeRein = ReinforcementInputBox.isSelected();
+        Boolean pipeRes = chemResInputBox.isSelected();
+        
+        boolean isValid = false;
+        String s = plasticGradeDropDown.getSelectedItem().toString();
+        int selItem = Integer.parseInt(s);
+        if ((selItem < 4) && (selItem > 0)) {
+            if (pipeColDropDown.getSelectedItem() == "No Colour") {
+                if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
+                    PipeI newPipe = new PipeI(newPipePlastic,(double)newPipeLen,(double)newPipeWidth,pipeRes);
+                    jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                    isValid = true;
+                }
+            }
+        }
+        if ((selItem > 1) && (selItem < 5)) {
+            if (pipeColDropDown.getSelectedItem() == "1 Colour") {
+                if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
+                    //pipe type 2
+                    isValid = true;
+                }
+            }
+        }
+        if ((selItem > 1) && (selItem < 6)) {
+            if (pipeColDropDown.getSelectedItem() == "2 Colours") {
+                if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
+                    //pipe type 3
+                    isValid = true;
+                } else if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == false)) {
+                    //pipe type 4
+                    isValid = true;
+                }
+            }
+        }
+        if ((selItem > 2) && (selItem < 6)) {
+            if (pipeColDropDown.getSelectedItem() == "2 Colours") {
+                if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == true)) {
+                    //pipe type 5
+                    isValid = true;
+                }
+            }
+        }
+
+        if (isValid == false) {
+            JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe ");
+        }
+        //enter calculate cost function
+      
+        
        // int newPipeCol = Integer.parseInt( pipeColDropDown.getSelectedItem().toString());
         int newPipeCol = 0;
         if(pipeColDropDown.getSelectedItem().toString() != "No Colour"){
@@ -518,22 +566,20 @@ public class PipeInterface extends javax.swing.JFrame {
        
        
        
-        Boolean pipeInsu = innerInsuCheckBox.isSelected();
-        Boolean pipeRein = ReinforcementInputBox.isSelected();
-        Boolean pipeRes = chemResInputBox.isSelected();
         
         
-        // figure out what type the pipe is using the inputs from above
-        
-        if(newPipeCol == 0 && pipeInsu == false && pipeRein == false && newPipePlastic < 4){
-            PipeI newPipe = new PipeI(newPipePlastic,(int)newPipeLen,(int)newPipeWidth,pipeRes);
-            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
-            pipeBasket.add(newPipe);
-        }
-        else{
-            JOptionPane.showMessageDialog(new JFrame(), "invalid pipe ");
-        }
-        
+//        
+//        // figure out what type the pipe is using the inputs from above
+//        
+//        if(newPipeCol == 0 && pipeInsu == false && pipeRein == false && newPipePlastic < 4){
+//            PipeI newPipe = new PipeI(newPipePlastic,(int)newPipeLen,(int)newPipeWidth,pipeRes);
+//            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+//            pipeBasket.add(newPipe);
+//        }
+//        else{
+//            JOptionPane.showMessageDialog(new JFrame(), "invalid pipe ");
+//        }
+//        
         
    
         
