@@ -8,13 +8,20 @@ package longpipes;
  *
  * @author Michael B
  */
-public class PipeInterface extends javax.swing.JFrame {
 
+
+import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+public class PipeInterface extends javax.swing.JFrame {
+    ArrayList<Pipe> pipeBasket = new ArrayList<Pipe>();
     /**
      * Creates new form PipeInterface
      */
     public PipeInterface() {
         initComponents();
+          // create basketArrayList 
+        
     }
 
     /**
@@ -177,7 +184,7 @@ public class PipeInterface extends javax.swing.JFrame {
 
         pipeColDropDown.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         pipeColDropDown.setMaximumRowCount(3);
-        pipeColDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No Colour", "1 Colour", "2 Colours" }));
+        pipeColDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No Colour", "1", "2" }));
         pipeColDropDown.setToolTipText("Select pipe colours");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -495,11 +502,49 @@ public class PipeInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_clearSectionButtonActionPerformed
 
     private void calcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcButtonActionPerformed
+        
+        // add validation (try catch)
+
         //enter calculate cost function
+      
+        float newPipeLen =  Float.parseFloat(lengthInputBox.getText());
+        float newPipeWidth = Float.parseFloat(widthInputBox.getText());
+        int newPipePlastic = Integer.parseInt(plasticGradeDropDown.getSelectedItem().toString());
+       // int newPipeCol = Integer.parseInt( pipeColDropDown.getSelectedItem().toString());
+        int newPipeCol = 0;
+        if(pipeColDropDown.getSelectedItem().toString() != "No Colour"){
+            newPipeCol = Integer.parseInt( pipeColDropDown.getSelectedItem().toString());
+        }
+       
+       
+       
+        Boolean pipeInsu = innerInsuCheckBox.isSelected();
+        Boolean pipeRein = ReinforcementInputBox.isSelected();
+        Boolean pipeRes = chemResInputBox.isSelected();
+        
+        
+        // figure out what type the pipe is using the inputs from above
+        
+        if(newPipeCol == 0 && pipeInsu == false && pipeRein == false && newPipePlastic < 4){
+            PipeI newPipe = new PipeI(newPipePlastic,(int)newPipeLen,(int)newPipeWidth,pipeRes);
+            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+            pipeBasket.add(newPipe);
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "invalid pipe ");
+        }
+        
+        
+   
+        
+        
     }//GEN-LAST:event_calcButtonActionPerformed
 
     private void AddToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddToBasketButtonActionPerformed
-        // TODO add your handling code here:
+        
+        //make pipe object
+        //pipeBasket.add(pipeObj);
+        
     }//GEN-LAST:event_AddToBasketButtonActionPerformed
 
     private void QuantityBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_QuantityBoxStateChanged
@@ -549,6 +594,10 @@ public class PipeInterface extends javax.swing.JFrame {
                 new PipeInterface().setVisible(true);
             }
         });
+        
+   
+        
+        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

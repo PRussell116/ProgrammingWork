@@ -554,8 +554,8 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
             <StringItem index="0" value="No Colour"/>
-            <StringItem index="1" value="1 Colour"/>
-            <StringItem index="2" value="2 Colours"/>
+            <StringItem index="1" value="1"/>
+            <StringItem index="2" value="2"/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Select pipe colours"/>
