@@ -4,24 +4,26 @@
  * and open the template in the editor.
  */
 package longpipes;
+
 /**
  *
  * @author Michael B
  */
-
-
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 public class PipeInterface extends javax.swing.JFrame {
+
     ArrayList<Pipe> pipeBasket = new ArrayList<Pipe>();
+
     /**
      * Creates new form PipeInterface
      */
     public PipeInterface() {
         initComponents();
-          // create basketArrayList 
-        
+        // create basketArrayList 
+
     }
 
     /**
@@ -502,72 +504,87 @@ public class PipeInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_clearSectionButtonActionPerformed
 
     private void calcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcButtonActionPerformed
-        
-        // add validation (try catch)
-        float newPipeLen =  Float.parseFloat(lengthInputBox.getText());
-        float newPipeWidth = Float.parseFloat(widthInputBox.getText());
-        int newPipePlastic = Integer.parseInt(plasticGradeDropDown.getSelectedItem().toString());
-        
-        Boolean pipeInsu = innerInsuCheckBox.isSelected();
-        Boolean pipeRein = ReinforcementInputBox.isSelected();
-        Boolean pipeRes = chemResInputBox.isSelected();
-        
-        boolean isValid = false;
-        String s = plasticGradeDropDown.getSelectedItem().toString();
-        int selItem = Integer.parseInt(s);
-        if ((selItem < 4) && (selItem > 0)) {
-            if (pipeColDropDown.getSelectedItem() == "No Colour") {
-                if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
-                    PipeI newPipe = new PipeI(newPipePlastic,(double)newPipeLen,(double)newPipeWidth,pipeRes);
-                    jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
-                    isValid = true;
+
+        try {
+            // check the values in the boxes if cant be parsed catch exception
+            float newPipeLen = newPipeLen = Float.parseFloat(lengthInputBox.getText());
+            float newPipeWidth = newPipeWidth = Float.parseFloat(widthInputBox.getText());
+            int newPipePlastic = newPipePlastic = Integer.parseInt(plasticGradeDropDown.getSelectedItem().toString());
+
+            Boolean pipeInsu = innerInsuCheckBox.isSelected();
+            Boolean pipeRein = ReinforcementInputBox.isSelected();
+            Boolean pipeRes = chemResInputBox.isSelected();
+
+            boolean isValid = false;
+            if (newPipeLen < 6) {
+                String s = plasticGradeDropDown.getSelectedItem().toString();
+                int selItem = Integer.parseInt(s);
+                if ((selItem < 4) && (selItem > 0)) {
+                    if (pipeColDropDown.getSelectedItem() == "No Colour") {
+                        if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
+
+                            PipeI newPipe = new PipeI(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
+                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            isValid = true;
+                        }
+                    }
                 }
-            }
-        }
-        if ((selItem > 1) && (selItem < 5)) {
-            if (pipeColDropDown.getSelectedItem() == "1 Colour") {
-                if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
-                    //pipe type 2
-                    isValid = true;
+                if ((selItem > 1) && (selItem < 5)) {
+                    if (pipeColDropDown.getSelectedItem() == "1 Colour") {
+                        if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
+                            PipeII newPipe = new PipeII(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
+                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            //pipe type 2
+                            isValid = true;
+                        }
+                    }
                 }
-            }
-        }
-        if ((selItem > 1) && (selItem < 6)) {
-            if (pipeColDropDown.getSelectedItem() == "2 Colours") {
-                if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
-                    //pipe type 3
-                    isValid = true;
-                } else if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == false)) {
-                    //pipe type 4
-                    isValid = true;
+                if ((selItem > 1) && (selItem < 6)) {
+                    if (pipeColDropDown.getSelectedItem() == "2 Colours") {
+                        if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
+                            //pipe type 3
+                            PipeIII newPipe = new PipeIII(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
+                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            isValid = true;
+                        } else if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == false)) {
+                            //pipe type 4
+                            PipeIV newPipe = new PipeIV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu);
+                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            isValid = true;
+                        }
+                    }
                 }
-            }
-        }
-        if ((selItem > 2) && (selItem < 6)) {
-            if (pipeColDropDown.getSelectedItem() == "2 Colours") {
-                if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == true)) {
-                    //pipe type 5
-                    isValid = true;
+                if ((selItem > 2) && (selItem < 6)) {
+                    if (pipeColDropDown.getSelectedItem() == "2 Colours") {
+                        if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == true)) {
+                            //pipe type 5
+
+                            PipeV newPipe = new PipeV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu, pipeRein);
+                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            isValid = true;
+                        }
+                    }
                 }
+
+                if (isValid == false) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe ");
+                }
+                //enter calculate cost function
+
+                // int newPipeCol = Integer.parseInt( pipeColDropDown.getSelectedItem().toString());
+                int newPipeCol = 0;
+                if (pipeColDropDown.getSelectedItem().toString() != "No Colour") {
+                    newPipeCol = Integer.parseInt(pipeColDropDown.getSelectedItem().toString());
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be longer than 6m ");
             }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Invalid pipe: Please enter a number ");
         }
 
-        if (isValid == false) {
-            JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe ");
-        }
-        //enter calculate cost function
-      
-        
-       // int newPipeCol = Integer.parseInt( pipeColDropDown.getSelectedItem().toString());
-        int newPipeCol = 0;
-        if(pipeColDropDown.getSelectedItem().toString() != "No Colour"){
-            newPipeCol = Integer.parseInt( pipeColDropDown.getSelectedItem().toString());
-        }
-       
-       
-       
-        
-        
 //        
 //        // figure out what type the pipe is using the inputs from above
 //        
@@ -580,31 +597,25 @@ public class PipeInterface extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(new JFrame(), "invalid pipe ");
 //        }
 //        
-        
-   
-        
-        
+
     }//GEN-LAST:event_calcButtonActionPerformed
 
     private void AddToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddToBasketButtonActionPerformed
-        
+
         //make pipe object
         //pipeBasket.add(pipeObj);
-        
+
     }//GEN-LAST:event_AddToBasketButtonActionPerformed
 
     private void QuantityBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_QuantityBoxStateChanged
-        if((Integer)QuantityBox.getValue() < 0) {
+        if ((Integer) QuantityBox.getValue() < 0) {
             QuantityBox.setValue(0);
         }
     }//GEN-LAST:event_QuantityBoxStateChanged
 
     private void lengthInputBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lengthInputBoxKeyReleased
-        String lengthText = lengthInputBox.getText();
-        float lengthFloat = Float.parseFloat(lengthInputBox.getText());
-        if(lengthFloat > 6){
-            lengthInputBox.setText("6m Maximum");
-        } 
+
+
     }//GEN-LAST:event_lengthInputBoxKeyReleased
 
     /**
@@ -640,12 +651,9 @@ public class PipeInterface extends javax.swing.JFrame {
                 new PipeInterface().setVisible(true);
             }
         });
-        
-   
-        
-        
+
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddToBasketButton;
     private javax.swing.JSpinner QuantityBox;
@@ -696,4 +704,3 @@ public class PipeInterface extends javax.swing.JFrame {
     private javax.swing.JTextField widthInputBox;
     // End of variables declaration//GEN-END:variables
 }
-

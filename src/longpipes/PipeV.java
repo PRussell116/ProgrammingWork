@@ -16,7 +16,7 @@ public class PipeV extends PipeIV{
      * @param innerIns a boolean value representing if the has inner insulation
      * @param outerRein a boolean value representing if the pipe has outer reinforcement
      */ 
-    public PipeV(int plasticGr,int len,int outerDi ,boolean chemRes, boolean innerIns, boolean outerRein){
+    public PipeV(int plasticGr,double len,double outerDi ,boolean chemRes, boolean innerIns, boolean outerRein){
         super(plasticGr,len,outerDi,chemRes,innerIns);
         outerReinfocement = outerRein;
         

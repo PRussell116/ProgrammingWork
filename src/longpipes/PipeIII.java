@@ -14,7 +14,7 @@ public class PipeIII extends PipeI{
      * @param outerDi an integer representing the outer diameter of the pipe in mm
      * @param chemRes a boolean value representing if the pipe has chemical resistance 
      */  
-    public PipeIII(int plasticGr,int len,int outerDi ,boolean chemRes){
+    public PipeIII(int plasticGr,double len,double outerDi ,boolean chemRes){
         super(plasticGr,len,outerDi,chemRes);
         
         
