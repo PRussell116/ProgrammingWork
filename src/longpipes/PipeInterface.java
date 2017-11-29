@@ -516,7 +516,7 @@ public class PipeInterface extends javax.swing.JFrame {
             Boolean pipeRes = chemResInputBox.isSelected();
 
             boolean isValid = false;
-            if (newPipeLen < 6) {
+            if (newPipeLen < 6 && newPipeLen > 0) {
                 String s = plasticGradeDropDown.getSelectedItem().toString();
                 int selItem = Integer.parseInt(s);
                 if ((selItem < 4) && (selItem > 0)) {
@@ -577,8 +577,11 @@ public class PipeInterface extends javax.swing.JFrame {
                     newPipeCol = Integer.parseInt(pipeColDropDown.getSelectedItem().toString());
                 }
 
-            } else {
+            } else if(newPipeLen > 6) {
                 JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be longer than 6m ");
+            }
+            else{
+                JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be 0m or less than 0m");
             }
 
         } catch (NumberFormatException e) {
