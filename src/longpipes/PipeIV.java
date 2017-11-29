@@ -12,7 +12,7 @@ public class PipeIV extends PipeIII{
      * @param chemRes a boolean value representing if the pipe has chemical resistance 
      * @param innerIns a boolean value representing if the has inner insulation
      */  
-    public PipeIV(int plasticGr,int len,int outerDi ,boolean chemRes, boolean innerIns){
+    public PipeIV(int plasticGr,double len,double outerDi ,boolean chemRes, boolean innerIns){
         super(plasticGr,len,outerDi,chemRes);
         innerInsulation = innerIns;
         
