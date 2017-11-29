@@ -1,4 +1,5 @@
 package longpipes;
+import java.text.DecimalFormat;
 
 public class PipeI extends Pipe {
 
@@ -12,7 +13,7 @@ public class PipeI extends Pipe {
      * @param chemRes a boolean value representing if the pipe has chemical
      * resistance
      */
-    public PipeI(int plasticGr, int len, int outerDi, boolean chemRes) {
+    public PipeI(int plasticGr, double len, double outerDi, boolean chemRes) {
         super(plasticGr, len, outerDi,chemRes);
     }
     /**
@@ -22,13 +23,13 @@ public class PipeI extends Pipe {
      * @return a double representing the basic cost of the pipe
      */
     public double calculateCost() {
-        Double innerVolume = Math.pow((innerDiameter / 2), 2) * Math.PI * length;
-        Double outerVolume = Math.pow((outerDiameter / 2), 2) * Math.PI * length;
+        Double innerVolume = Math.pow((innerDiameter / 2), 2) * Math.PI * (length*39.37);
+        Double outerVolume = Math.pow((outerDiameter / 2), 2) * Math.PI * (length*39.37);
         Double pipeVolume = outerVolume - innerVolume;
 
-        basicCost = (pipeVolume * 0.00006102374) * costPerInc;  //converts from mm to inches and times by the price
+        basicCost = pipeVolume * costPerInc;  //converts from mm to inches and times by the price
         if (chemResistance == true) {
-            double cost = basicCost * 0.14;
+            double cost = basicCost * 1.14;
             return cost;
 
         } else {

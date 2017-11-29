@@ -10,12 +10,11 @@ package longpipes;
  * @author Oliver
  */
 public abstract class Pipe {
-    protected int plasticGrade,length,outerDiameter;
-    protected double innerDiameter, basicCost;
-    protected double costPerInc;
+    protected int plasticGrade;
+    protected double innerDiameter, basicCost, length, outerDiameter, costPerInc;
     protected boolean chemResistance;
     
-    public Pipe(int plasticGr,int len,int outerDi,Boolean chemRes){
+    public Pipe(int plasticGr,double len,double outerDi,Boolean chemRes){
         plasticGrade = plasticGr;
         length = len; // need to convert from inch to mm
         outerDiameter = outerDi;
@@ -70,7 +69,7 @@ public abstract class Pipe {
      *
      * @return A integer representing the length of the pipe in mm
      */
-    public int getLength() {
+    public double getLength() {
         return length;
     }
 
@@ -79,7 +78,7 @@ public abstract class Pipe {
      *
      * @return an integer representing the outer diameter of the pipe in mm
      */
-    public int getOuterDiameter() {
+    public double getOuterDiameter() {
         return outerDiameter;
     }
 
