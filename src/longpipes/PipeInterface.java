@@ -12,6 +12,7 @@ package longpipes;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.math.*;
 
 public class PipeInterface extends javax.swing.JFrame {
 
@@ -113,11 +114,21 @@ public class PipeInterface extends javax.swing.JFrame {
         completeOrderButton.setText("Complete Order");
         completeOrderButton.setToolTipText("Click to order your pipes");
         completeOrderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        completeOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completeOrderButtonActionPerformed(evt);
+            }
+        });
 
         clearBasketButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         clearBasketButton.setText("Clear Basket");
         clearBasketButton.setToolTipText("Clears the basket");
         clearBasketButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clearBasketButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBasketButtonActionPerformed(evt);
+            }
+        });
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -507,7 +518,7 @@ public class PipeInterface extends javax.swing.JFrame {
 
         try {
             // check the values in the boxes if cant be parsed catch exception
-            float newPipeLen = newPipeLen = Float.parseFloat(lengthInputBox.getText());
+            float newPipeLen = Float.parseFloat(lengthInputBox.getText());
             float newPipeWidth = newPipeWidth = Float.parseFloat(widthInputBox.getText());
             int newPipePlastic = newPipePlastic = Integer.parseInt(plasticGradeDropDown.getSelectedItem().toString());
 
@@ -516,7 +527,8 @@ public class PipeInterface extends javax.swing.JFrame {
             Boolean pipeRes = chemResInputBox.isSelected();
 
             boolean isValid = false;
-            if (newPipeLen < 6 && newPipeLen > 0) {
+            // if len or width invalid give error message
+            if (newPipeLen < 6 && newPipeLen > 0 && newPipeWidth > 0) {
                 String s = plasticGradeDropDown.getSelectedItem().toString();
                 int selItem = Integer.parseInt(s);
                 if ((selItem < 4) && (selItem > 0)) {
@@ -524,43 +536,49 @@ public class PipeInterface extends javax.swing.JFrame {
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
 
                             PipeI newPipe = new PipeI(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
-                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            jTextArea3.setText(roundAndString(newPipe.calculateCost()));
+                            pipeBasket.add(newPipe);
                             isValid = true;
                         }
                     }
                 }
                 if ((selItem > 1) && (selItem < 5)) {
-                    if (pipeColDropDown.getSelectedItem() == "1 Colour") {
+                    if (pipeColDropDown.getSelectedItem() == "1") {
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
                             PipeII newPipe = new PipeII(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
-                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            jTextArea3.setText(roundAndString(newPipe.calculateCost()));
                             //pipe type 2
+                            pipeBasket.add(newPipe);
                             isValid = true;
                         }
                     }
                 }
                 if ((selItem > 1) && (selItem < 6)) {
-                    if (pipeColDropDown.getSelectedItem() == "2 Colours") {
+                    if (pipeColDropDown.getSelectedItem() == "2") {
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
                             //pipe type 3
                             PipeIII newPipe = new PipeIII(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
-                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            
+                            pipeBasket.add(newPipe);
+                            jTextArea3.setText(roundAndString(newPipe.calculateCost()));
                             isValid = true;
                         } else if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == false)) {
                             //pipe type 4
                             PipeIV newPipe = new PipeIV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu);
-                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            jTextArea3.setText(roundAndString(newPipe.calculateCost()));
+                            pipeBasket.add(newPipe);
                             isValid = true;
                         }
                     }
                 }
                 if ((selItem > 2) && (selItem < 6)) {
-                    if (pipeColDropDown.getSelectedItem() == "2 Colours") {
+                    if (pipeColDropDown.getSelectedItem() == "2") {
                         if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == true)) {
                             //pipe type 5
 
                             PipeV newPipe = new PipeV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu, pipeRein);
-                            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
+                            jTextArea3.setText(roundAndString(newPipe.calculateCost()));
+                            pipeBasket.add(newPipe);
                             isValid = true;
                         }
                     }
@@ -580,6 +598,10 @@ public class PipeInterface extends javax.swing.JFrame {
             } else if(newPipeLen > 6) {
                 JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be longer than 6m ");
             }
+            else if(newPipeWidth <= 0){
+                JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot have width less than or equal to 0 ");
+            }
+            
             else{
                 JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be 0m or less than 0m");
             }
@@ -621,6 +643,27 @@ public class PipeInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lengthInputBoxKeyReleased
 
+    private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
+        // goes through basket and adds all 
+        double total = 0;
+        for(Pipe pipe:pipeBasket){
+            total += pipe.calculateCost() ;
+        }
+        totalPriceBox.setText(roundAndString(total));
+    }//GEN-LAST:event_completeOrderButtonActionPerformed
+
+    private void clearBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBasketButtonActionPerformed
+        // empties the basket and set box to empty
+        pipeBasket.clear();
+        totalPriceBox.setText("");
+    }//GEN-LAST:event_clearBasketButtonActionPerformed
+
+    
+    private String roundAndString(double num){
+        // rounds a number to 2 DP and returns it as a string
+         return String.valueOf(Math.round(num*100.0)/100.0);
+       
+    }
     /**
      * @param args the command line arguments
      */
