@@ -91,4 +91,9 @@ public abstract class Pipe {
         outerDiameter = newDia;
     }
 
+    
+    public abstract double calculateCost();
+    
+    
+    
 }
