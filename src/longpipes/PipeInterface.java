@@ -17,7 +17,7 @@ import java.math.*;
 public class PipeInterface extends javax.swing.JFrame {
 
     ArrayList<Pipe> pipeBasket = new ArrayList<Pipe>();
-
+    
     /**
      * Creates new form PipeInterface
      */
@@ -37,7 +37,6 @@ public class PipeInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         basketArea = new javax.swing.JTextArea();
@@ -86,9 +85,6 @@ public class PipeInterface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LongPipes Ordering System");
         setResizable(false);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/longpipes.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
 
         basketArea.setEditable(false);
         basketArea.setColumns(20);
@@ -269,6 +265,7 @@ public class PipeInterface extends javax.swing.JFrame {
         jLabel17.setText("Quantity");
 
         QuantityBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        QuantityBox.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
         QuantityBox.setToolTipText("Enter quantity of pipes to order");
         QuantityBox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -329,9 +326,6 @@ public class PipeInterface extends javax.swing.JFrame {
                                             .addComponent(postCodeInputBox))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,8 +384,7 @@ public class PipeInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(fNameInputBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -489,8 +482,9 @@ public class PipeInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void calcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcButtonActionPerformed
-
+        ArrayList<String> errorList = new ArrayList<>();
         try {
+            
             // check the values in the boxes if cant be parsed catch exception
             float newPipeLen = Float.parseFloat(lengthInputBox.getText());
             float newPipeWidth = newPipeWidth = Float.parseFloat(widthInputBox.getText());
@@ -507,6 +501,7 @@ public class PipeInterface extends javax.swing.JFrame {
                 int selItem = Integer.parseInt(s);
                 if ((selItem < 4) && (selItem > 0)) {
                     if (pipeColDropDown.getSelectedItem() == "No Colour") {
+                        
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
 
                             PipeI newPipe = new PipeI(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
@@ -523,6 +518,10 @@ public class PipeInterface extends javax.swing.JFrame {
                                     " |  Quantity: "+ QuantityBox.getValue());
                         }
                     }
+                    else if(newPipePlastic == 1){
+                       errorList.add("Pipe cannot have colour with this plastic grade");
+                    }
+                    
                 }
                 if ((selItem > 1) && (selItem < 5)) {
                     if (pipeColDropDown.getSelectedItem() == "1") {
@@ -597,7 +596,11 @@ public class PipeInterface extends javax.swing.JFrame {
                 }
 
                 if (isValid == false) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe ");
+                    String allErrors = "";
+                    for(String error:errorList){
+                        allErrors += error;
+                    }
+                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: " + allErrors);
                 }
                 //enter calculate cost function
 
@@ -620,25 +623,13 @@ public class PipeInterface extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Invalid pipe: Please enter a number ");
         }
-
-//        
-//        // figure out what type the pipe is using the inputs from above
-//        
-//        if(newPipeCol == 0 && pipeInsu == false && pipeRein == false && newPipePlastic < 4){
-//            PipeI newPipe = new PipeI(newPipePlastic,(int)newPipeLen,(int)newPipeWidth,pipeRes);
-//            jTextArea3.setText(String.valueOf(newPipe.calculateCost()));
-//            pipeBasket.add(newPipe);
-//        }
-//        else{
-//            JOptionPane.showMessageDialog(new JFrame(), "invalid pipe ");
-//        }
-//        
+     
 
     }//GEN-LAST:event_calcButtonActionPerformed
 
     private void QuantityBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_QuantityBoxStateChanged
-        if ((Integer) QuantityBox.getValue() < 0) {
-            QuantityBox.setValue(0);
+        if ((Integer) QuantityBox.getValue() < 1) {
+            QuantityBox.setValue(1);
         }
     }//GEN-LAST:event_QuantityBoxStateChanged
 
@@ -672,7 +663,7 @@ public class PipeInterface extends javax.swing.JFrame {
         chemResInputBox.setSelected(false);
         pipeColDropDown.setSelectedItem("No Colour");
         plasticGradeDropDown.setSelectedItem("1");
-        QuantityBox.setValue(0);
+        QuantityBox.setValue(1);
     }//GEN-LAST:event_clearSectionButtonActionPerformed
 
     
@@ -731,7 +722,6 @@ public class PipeInterface extends javax.swing.JFrame {
     private javax.swing.JButton completeOrderButton;
     private javax.swing.JTextField fNameInputBox;
     private javax.swing.JCheckBox innerInsuCheckBox;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
