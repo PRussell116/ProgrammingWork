@@ -502,6 +502,7 @@ public class PipeInterface extends javax.swing.JFrame {
                 if ((selItem < 4) && (selItem > 0)) {
                     if (pipeColDropDown.getSelectedItem() == "No Colour") {
                         
+                        // validate that pipe does not have reinenforcment or insulation
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
 
                             PipeI newPipe = new PipeI(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
@@ -517,12 +518,22 @@ public class PipeInterface extends javax.swing.JFrame {
                             plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
                                     " |  Quantity: "+ QuantityBox.getValue());
                         }
+                        
+                        
+                        // give reason for invalid pipe
+                        if((innerInsuCheckBox.isSelected() == true)){
+                            errorList.add("Pipe cannot have inner insulation with this plastic grade");
+                        }
+                        if((ReinforcementInputBox.isSelected() == true)){
+                            errorList.add("Pipe cannot have outer reinforcement with this plastic grade");
+                        }
                     }
                     else if(newPipePlastic == 1){
                        errorList.add("Pipe cannot have colour with this plastic grade");
                     }
                     
                 }
+                // if grade is 2-4
                 if ((selItem > 1) && (selItem < 5)) {
                     if (pipeColDropDown.getSelectedItem() == "1") {
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
@@ -539,7 +550,14 @@ public class PipeInterface extends javax.swing.JFrame {
                             plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
                                     " |  Quantity: "+ QuantityBox.getValue());
                         }
+                        if((ReinforcementInputBox.isSelected() == true)){
+                            errorList.add("Pipe with 1 colour cannot have outer reinforcement");
+                        }
+                        if((innerInsuCheckBox.isSelected() == true)){
+                            errorList.add("Pipe with 1 colour cannot have inner insulation");
+                        }
                     }
+                  
                 }
                 if ((selItem > 1) && (selItem < 6)) {
                     if (pipeColDropDown.getSelectedItem() == "2") {
@@ -598,7 +616,7 @@ public class PipeInterface extends javax.swing.JFrame {
                 if (isValid == false) {
                     String allErrors = "";
                     for(String error:errorList){
-                        allErrors += error;
+                        allErrors += error + ", ";
                     }
                     JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: " + allErrors);
                 }
