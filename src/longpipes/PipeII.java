@@ -1,14 +1,17 @@
 
 package longpipes;
 
-
+/**
+ *
+ * @author up806925
+ */
 public class PipeII extends PipeI{
     protected int colour = 1;  // the number of colours is 1
     
     /**
      **@param plasticGr an integer between 2 and 4 representing the quality of plastic 
-     * @param len an integer representing the length of the pipe in mm
-     * @param outerDi an integer representing the outer diameter of the pipe in mm
+     * @param len a double representing the length of the pipe with a maximum of 6M
+     * @param outerDi a double representing the outer diameter of the pipe
      * @param chemRes a boolean value representing if the pipe has chemical resistance 
 
      */    
@@ -17,17 +20,10 @@ public class PipeII extends PipeI{
     }
     
     /**Gets the first colour of the pipe
-     * @return returns a String containing the first colour of the pipe
+     * @return returns an int representing the number of colours that the pipe has
      */
     public int getColour(){
         return colour;
-    }
-    
-    /**Set the first colour of the pipe
-     * @param newColour An integer representing the pipes first colour
-     */
-    public void setColour1(int newColour){
-        colour = newColour;
     }
     
     
@@ -37,6 +33,7 @@ public class PipeII extends PipeI{
     * @return  a double representing the cost of the pipe 
     */
     
+   
     @Override
     public double calculateCost(){
         double parentCost = super.calculateCost();

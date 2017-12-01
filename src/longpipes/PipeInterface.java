@@ -14,10 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.math.*;
 
+/**
+ *
+ * @author up806925
+ */
 public class PipeInterface extends javax.swing.JFrame {
 
     ArrayList<Pipe> pipeBasket = new ArrayList<Pipe>();
-    
+
     /**
      * Creates new form PipeInterface
      */
@@ -484,7 +488,7 @@ public class PipeInterface extends javax.swing.JFrame {
     private void calcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcButtonActionPerformed
         ArrayList<String> errorList = new ArrayList<>();
         try {
-            
+
             // check the values in the boxes if cant be parsed catch exception
             float newPipeLen = Float.parseFloat(lengthInputBox.getText());
             float newPipeWidth = newPipeWidth = Float.parseFloat(widthInputBox.getText());
@@ -501,37 +505,35 @@ public class PipeInterface extends javax.swing.JFrame {
                 int selItem = Integer.parseInt(s);
                 if ((selItem < 4) && (selItem > 0)) {
                     if (pipeColDropDown.getSelectedItem() == "No Colour") {
-                        
+
                         // validate that pipe does not have reinenforcment or insulation
                         if ((innerInsuCheckBox.isSelected() == false) && (ReinforcementInputBox.isSelected() == false)) {
 
                             PipeI newPipe = new PipeI(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
                             pipeCostArea.setText("£" + roundAndString(newPipe.calculateCost()));
                             //adds the correct quantity of pipes to the basket
-                            for(int i=0; i<(Integer)QuantityBox.getValue(); i++) {
+                            for (int i = 0; i < (Integer) QuantityBox.getValue(); i++) {
                                 pipeBasket.add(newPipe);
                             }
                             isValid = true;
                             //displays pipe details on a new line in the basket
                             basketArea.setText(basketArea.getText() + "\nLength: " + roundAndString(newPipe.getLength())
-                            + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: " +
-                            plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
-                                    " |  Quantity: "+ QuantityBox.getValue());
+                                    + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: "
+                                    + plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost())
+                                    + " |  Quantity: " + QuantityBox.getValue());
                         }
-                        
-                        
+
                         // give reason for invalid pipe
-                        if((innerInsuCheckBox.isSelected() == true)){
+                        if ((innerInsuCheckBox.isSelected() == true)) {
                             errorList.add("Pipe cannot have inner insulation with this plastic grade");
                         }
-                        if((ReinforcementInputBox.isSelected() == true)){
+                        if ((ReinforcementInputBox.isSelected() == true)) {
                             errorList.add("Pipe cannot have outer reinforcement with this plastic grade");
                         }
+                    } else if (newPipePlastic == 1) {
+                        errorList.add("Pipe cannot have colour with this plastic grade");
                     }
-                    else if(newPipePlastic == 1){
-                       errorList.add("Pipe cannot have colour with this plastic grade");
-                    }
-                    
+
                 }
                 // if grade is 2-4
                 if ((selItem > 1) && (selItem < 5)) {
@@ -540,24 +542,24 @@ public class PipeInterface extends javax.swing.JFrame {
                             PipeII newPipe = new PipeII(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
                             pipeCostArea.setText("£" + roundAndString(newPipe.calculateCost()));
                             //adds the correct quantity of pipes to the basket
-                            for(int i=0; i<(Integer)QuantityBox.getValue(); i++) {
+                            for (int i = 0; i < (Integer) QuantityBox.getValue(); i++) {
                                 pipeBasket.add(newPipe);
                             }
                             isValid = true;
                             //displays pipe details on a new line in the basket
                             basketArea.setText(basketArea.getText() + "\nLength: " + roundAndString(newPipe.getLength())
-                            + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: " +
-                            plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
-                                    " |  Quantity: "+ QuantityBox.getValue());
+                                    + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: "
+                                    + plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost())
+                                    + " |  Quantity: " + QuantityBox.getValue());
                         }
-                        if((ReinforcementInputBox.isSelected() == true)){
+                        if ((ReinforcementInputBox.isSelected() == true)) {
                             errorList.add("Pipe with 1 colour cannot have outer reinforcement");
                         }
-                        if((innerInsuCheckBox.isSelected() == true)){
+                        if ((innerInsuCheckBox.isSelected() == true)) {
                             errorList.add("Pipe with 1 colour cannot have inner insulation");
                         }
                     }
-                  
+
                 }
                 if ((selItem > 1) && (selItem < 6)) {
                     if (pipeColDropDown.getSelectedItem() == "2") {
@@ -566,29 +568,29 @@ public class PipeInterface extends javax.swing.JFrame {
                             PipeIII newPipe = new PipeIII(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes);
                             pipeCostArea.setText("£" + roundAndString(newPipe.calculateCost()));
                             //adds the correct quantity of pipes to the basket
-                            for(int i=0; i<(Integer)QuantityBox.getValue(); i++) {
-                                pipeBasket.add(newPipe);
-                            }                            
-                            isValid = true;
-                            //displays pipe details on a new line in the basket
-                            basketArea.setText(basketArea.getText() + "\nLength: " + roundAndString(newPipe.getLength())
-                            + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: " +
-                            plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
-                                    " |  Quantity: "+ QuantityBox.getValue());
-                        } else if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == false)) {
-                            //pipe type 4
-                            PipeIV newPipe = new PipeIV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu);
-                            pipeCostArea.setText("£" + roundAndString(newPipe.calculateCost()));
-                            //adds the correct quantity of pipes to the basket
-                            for(int i=0; i<(Integer)QuantityBox.getValue(); i++) {
+                            for (int i = 0; i < (Integer) QuantityBox.getValue(); i++) {
                                 pipeBasket.add(newPipe);
                             }
                             isValid = true;
                             //displays pipe details on a new line in the basket
                             basketArea.setText(basketArea.getText() + "\nLength: " + roundAndString(newPipe.getLength())
-                            + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: " +
-                            plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
-                                    " |  Quantity: "+ QuantityBox.getValue());
+                                    + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: "
+                                    + plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost())
+                                    + " |  Quantity: " + QuantityBox.getValue());
+                        } else if ((innerInsuCheckBox.isSelected() == true) && (ReinforcementInputBox.isSelected() == false)) {
+                            //pipe type 4
+                            PipeIV newPipe = new PipeIV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu);
+                            pipeCostArea.setText("£" + roundAndString(newPipe.calculateCost()));
+                            //adds the correct quantity of pipes to the basket
+                            for (int i = 0; i < (Integer) QuantityBox.getValue(); i++) {
+                                pipeBasket.add(newPipe);
+                            }
+                            isValid = true;
+                            //displays pipe details on a new line in the basket
+                            basketArea.setText(basketArea.getText() + "\nLength: " + roundAndString(newPipe.getLength())
+                                    + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: "
+                                    + plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost())
+                                    + " |  Quantity: " + QuantityBox.getValue());
                         }
                     }
                 }
@@ -600,22 +602,22 @@ public class PipeInterface extends javax.swing.JFrame {
                             PipeV newPipe = new PipeV(newPipePlastic, (double) newPipeLen, (double) newPipeWidth, pipeRes, pipeInsu, pipeRein);
                             pipeCostArea.setText("£" + roundAndString(newPipe.calculateCost()));
                             //adds the correct quantity of pipes to the basket
-                            for(int i=0; i<(Integer)QuantityBox.getValue(); i++) {
+                            for (int i = 0; i < (Integer) QuantityBox.getValue(); i++) {
                                 pipeBasket.add(newPipe);
                             }
                             isValid = true;
                             //displays pipe details on a new line in the basket
                             basketArea.setText(basketArea.getText() + "\nLength: " + roundAndString(newPipe.getLength())
-                            + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: " +
-                            plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost()) +
-                                    " |  Quantity: "+ QuantityBox.getValue());
+                                    + "m |  Width: " + roundAndString(newPipe.getOuterDiameter()) + "in |  Grade: "
+                                    + plasticGradeDropDown.getSelectedItem() + " |  Price: £" + roundAndString(newPipe.calculateCost())
+                                    + " |  Quantity: " + QuantityBox.getValue());
                         }
                     }
                 }
 
                 if (isValid == false) {
                     String allErrors = "";
-                    for(String error:errorList){
+                    for (String error : errorList) {
                         allErrors += error + ", ";
                     }
                     JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: " + allErrors);
@@ -628,20 +630,18 @@ public class PipeInterface extends javax.swing.JFrame {
                     newPipeCol = Integer.parseInt(pipeColDropDown.getSelectedItem().toString());
                 }
 
-            } else if(newPipeLen > 6) {
+            } else if (newPipeLen > 6) {
                 JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be longer than 6m ");
-            }
-            else if(newPipeWidth <= 0){
+            } else if (newPipeWidth <= 0) {
                 JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot have width less than or equal to 0 ");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(new JFrame(), "Invalid Pipe: Pipe cannot be 0m or less than 0m");
             }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Invalid pipe: Please enter a number ");
         }
-     
+
 
     }//GEN-LAST:event_calcButtonActionPerformed
 
@@ -659,8 +659,8 @@ public class PipeInterface extends javax.swing.JFrame {
     private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
         // goes through basket and adds all 
         double total = 0;
-        for(Pipe pipe:pipeBasket){
-            total += pipe.calculateCost() ;
+        for (Pipe pipe : pipeBasket) {
+            total += pipe.calculateCost();
         }
         totalPriceBox.setText("£" + roundAndString(total));
     }//GEN-LAST:event_completeOrderButtonActionPerformed
@@ -684,12 +684,12 @@ public class PipeInterface extends javax.swing.JFrame {
         QuantityBox.setValue(1);
     }//GEN-LAST:event_clearSectionButtonActionPerformed
 
-    
-    private String roundAndString(double num){
+    private String roundAndString(double num) {
         // rounds a number to 2 DP and returns it as a string
-         return String.valueOf(Math.round(num*100.0)/100.0);
-       
+        return String.valueOf(Math.round(num * 100.0) / 100.0);
+
     }
+
     /**
      * @param args the command line arguments
      */
