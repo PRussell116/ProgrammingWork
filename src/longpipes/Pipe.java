@@ -10,13 +10,25 @@ package longpipes;
  * @author Oliver
  */
 public abstract class Pipe {
+
+    /**
+     *
+     */
     protected int plasticGrade;
     protected double innerDiameter, basicCost, length, outerDiameter, costPerInc;
     protected boolean chemResistance;
-    
-    public Pipe(int plasticGr,double len,double outerDi,Boolean chemRes){
+
+    /**
+     *
+     * @param plasticGr an int representing the grade of the plastic
+     * @param len a double representing the length of the pipe
+     * @param outerDi a double representing the outer diameter of the pipe
+     * @param chemRes a boolean representing if the pipe has additional chemical
+     * resistance
+     */
+    public Pipe(int plasticGr, double len, double outerDi, Boolean chemRes) {
         plasticGrade = plasticGr;
-        length = len; // need to convert from inch to mm
+        length = len;
         outerDiameter = outerDi;
         innerDiameter = (float) (outerDi * 0.9); //calculates inner diameter of pipe
         chemResistance = chemRes;
@@ -39,7 +51,7 @@ public abstract class Pipe {
                 break;
         }
     }
-    
+
     /**
      * set the boolean value of chemical resistance
      *
@@ -58,12 +70,6 @@ public abstract class Pipe {
         return chemResistance;
     }
 
-    /**
-     * Calculate the base cost of the pipe based on attributes and set attribute
-     * basicCost to the result
-     *
-     * @return a double representing the basic cost of the pipe
-     */
     /**
      * Gets the length of the pipe
      *
@@ -91,9 +97,10 @@ public abstract class Pipe {
         outerDiameter = newDia;
     }
 
-    
+    /**
+     *
+     * @return a double representing the cost of the pipe
+     */
     public abstract double calculateCost();
-    
-    
-    
+
 }
