@@ -16,13 +16,13 @@ public class PipeIV extends PipeIII {
      * plastic
      * @param len a double representing the length of the pipe with a maximum of
      * 6M
-     * @param outerDi a double representing the outer diameter of the pipe
+     * @param outerRi a double representing the outer radius of the pipe
      * @param chemRes a boolean value representing if the pipe has chemical
      * resistance
      * @param innerIns a boolean value representing if the has inner insulation
      */
-    public PipeIV(int plasticGr, double len, double outerDi, boolean chemRes, boolean innerIns) {
-        super(plasticGr, len, outerDi, chemRes);
+    public PipeIV(int plasticGr, double len, double outerRi, boolean chemRes, boolean innerIns) {
+        super(plasticGr, len, outerRi, chemRes);
         innerInsulation = innerIns;
 
     }
