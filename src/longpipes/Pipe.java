@@ -15,22 +15,22 @@ public abstract class Pipe {
      *
      */
     protected int plasticGrade;
-    protected double innerDiameter, basicCost, length, outerDiameter, costPerInc;
+    protected double innerRadius, basicCost, length, outerRadius, costPerInc;
     protected boolean chemResistance;
 
     /**
      *
      * @param plasticGr an int representing the grade of the plastic
      * @param len a double representing the length of the pipe
-     * @param outerDi a double representing the outer diameter of the pipe
+     * @param outerDi a double representing the outer radius of the pipe
      * @param chemRes a boolean representing if the pipe has additional chemical
      * resistance
      */
     public Pipe(int plasticGr, double len, double outerDi, Boolean chemRes) {
         plasticGrade = plasticGr;
         length = len;
-        outerDiameter = outerDi;
-        innerDiameter = (float) (outerDi * 0.9); //calculates inner diameter of pipe
+        outerRadius = outerDi;
+        innerRadius = (float) (outerDi * 0.9); //calculates inner radius of pipe
         chemResistance = chemRes;
         // determine costPerInc based on plastic grade
         switch (plasticGrade) {
@@ -73,28 +73,28 @@ public abstract class Pipe {
     /**
      * Gets the length of the pipe
      *
-     * @return A integer representing the length of the pipe in mm
+     * @return A integer representing the length of the pipe in meters
      */
     public double getLength() {
         return length;
     }
 
     /**
-     * Gets the outer diameter of the pipe
+     * Gets the outer radius of the pipe
      *
-     * @return an integer representing the outer diameter of the pipe in mm
+     * @return an integer representing the outer radius of the pipe in inches
      */
-    public double getOuterDiameter() {
-        return outerDiameter;
+    public double getOuterRadius() {
+        return outerRadius;
     }
 
     /**
-     * Set the pipes outer diameter
+     * Set the pipes outer radius
      *
-     * @param newDia An integer representing the pipes new diameter in mm
+     * @param newRad An integer representing the pipes new radius in inches
      */
-    public void setOuterDiameter(int newDia) {
-        outerDiameter = newDia;
+    public void setOuterRadius(int newRad) {
+        outerRadius = newRad;
     }
 
     /**
